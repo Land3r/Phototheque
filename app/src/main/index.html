@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Phototheque for all platforms !">
+  <meta name="author" content="Nicolas Gordat">
+  <meta name="keyword" content="Phototheque,Photo,Image,Electron,Bootstrap,Template,Open,Source,CSS,SCSS,HTML,React">
+  <title>Phototheque</title>
+</head>
+
+<body>
+  <div id="reactbody"></div>
+  <script>
+    {
+      if (process.env.NODE_ENV) {
+        const bundle = document.createElement('script');
+        const port = 8080;
+        bundle.src = 'http://localhost:' + port + '/app.bundle.js';
+        document.body.appendChild(bundle);
+
+        const devServer = document.createElement('script');
+        devServer.src = 'http://localhost:' + port + '/webpack-dev-server.js';
+        document.body.appendChild(devServer);
+      } else {
+        let headHTML = document.getElementsByTagName('head')[0].innerHTML;
+        headHTML += '<link type="text/css" rel="stylesheet" href="css/style.css">';
+        document.getElementsByTagName('head')[0].innerHTML = headHTML;
+
+        const bundle = document.createElement('script');
+        bundle.src = 'app.bundle.js';
+        document.body.appendChild(bundle);
+      }
+    }
+  </script>
+  <script>
+    if (typeof module === 'object') {
+      window.module = module;
+      module = undefined;
+    }
+  </script>
+  <script>
+    if (window.module) module = window.module;
+  </script>
+</body>
+
+</html>

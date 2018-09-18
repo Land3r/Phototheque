@@ -1,0 +1,95 @@
+// Here you can add other styles
+
+.media-gallery {
+   line-height: 0;
+   -webkit-column-count: 5;
+   -webkit-column-gap: 0px;
+   -moz-column-count: 5;
+   -moz-column-gap: 0px;
+   column-count: 5;
+   column-gap: 0px;
+}
+
+.media-gallery img {
+    width: 100% !important;
+    height: auto !important;
+}
+  
+@media (max-width: 1200px) {
+    .media-gallery {
+        -moz-column-count: 4;
+        -webkit-column-count: 4;
+        column-count: 4;
+    }
+}
+
+@media (max-width: 1000px) {
+    .media-gallery {
+        -moz-column-count: 3;
+        -webkit-column-count: 3;
+        column-count: 3;
+    }
+}
+
+@media (max-width: 800px) {
+    .media-gallery {
+        -moz-column-count: 2;
+        -webkit-column-count: 2;
+        column-count: 2;
+    }
+}
+
+@media (max-width: 400px) {
+    .media-gallery {
+        -moz-column-count: 1;
+        -webkit-column-count: 1;
+        column-count: 1;
+    }
+}
+
+@mixin plusMinus($width, $lineWidth, $color) {
+    box-sizing: border-box;
+    transition: transform 0.3s;
+    width: $width;
+    height: $width;
+    transform: rotate(180deg);
+    position: relative;
+  
+    &.collapse-closed {
+      transform: rotate(0deg);
+    }
+    &::before {
+      content: '';
+      display: block;
+      width: $width;
+      height:0px;
+      border-bottom: solid $lineWidth $color;
+      position: absolute;
+      bottom:$width /2 - $lineWidth/2;
+      transform: rotate(90deg);
+      transition: width 0.3s;
+    }
+    &.collapse-closed::before {
+      content: '';
+      display: block;
+      width: 0px;
+      height:0px;
+      border-bottom: solid $lineWidth $color;
+      position: absolute;
+      bottom:$width /2 - $lineWidth/2;
+      transform: rotate(90deg);
+    }
+    &::after {
+      content: '';
+      display: block;
+      width: $width;
+      height:0px;
+      border-bottom: solid $lineWidth $color;
+      position: absolute;
+      bottom:$width /2 - $lineWidth/2;
+    }
+  }
+  
+  .collapse-icon {
+    @include plusMinus(24px, 2px, #a1a1a1);
+  }
