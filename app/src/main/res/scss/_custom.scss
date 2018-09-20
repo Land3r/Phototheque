@@ -93,3 +93,6 @@
   .collapse-icon {
     @include plusMinus(24px, 2px, #a1a1a1);
   }
+
+.mt-auto {
+  margin-top: auto !important; }

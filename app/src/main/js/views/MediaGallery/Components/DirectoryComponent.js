@@ -11,8 +11,6 @@ class DirectoryComponent extends Component {
             ...props,
             isOpen: false
         }
-
-        console.log('Total state: ' +JSON.stringify(this.state))
     }
 
     toggleTooltip() {
@@ -26,9 +24,9 @@ class DirectoryComponent extends Component {
                     {this.state.directory}
                 </span>
                 &nbsp;
-                <span className="badge badge-primary badge-pill">{this.state.total_media}</span>
+                <span className="badge badge-primary badge-pill">{this.state.medias_total}</span>
                 <Tooltip placement="top" autohide={true} isOpen={this.state.isOpen} target={"DirectoryComponent" + this.state._id} toggle={this.toggleTooltip}>
-                    Ajouté le {this.state.createdAt.toString()}, dernier scan le {this.state.date_last_scan.toString()}
+                    Ajouté le {this.state.createdAt.toLocaleString('fr-FR')}, dernier scan le {this.state.date_last_scan.toLocaleString('fr-FR')}
                 </Tooltip>
             </li>
         )

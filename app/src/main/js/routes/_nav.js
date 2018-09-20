@@ -32,8 +32,9 @@ export default {
     },
     {
       name: 'Exit',
-      url: 'https://www.google.fr',
+      url: '/exit',
       icon: 'fa fa-power-off',
+      class: 'mt-auto',
       variant: 'danger',
     },
   ],

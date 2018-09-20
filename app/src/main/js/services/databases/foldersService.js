@@ -12,8 +12,8 @@ class FoldersService extends AbstractDatabaseService {
         // Sample data
         this.insert([{
             directory: 'C:\\Users\\ngordat\\Downloads\\exif-samples-master',
-            date_last_scan: 1536912951,
-            total_media: 47
+            date_last_scan: new Date(),
+            medias_total: 47
         }], (error, items) => {
             console.log('Folders DB initialized.')
         })

@@ -1,13 +1,9 @@
 let Datastore = require('nedb')
 import {config} from '../../config/config'
+const path = require('path')
 
 class AbstractDatabaseService {
     constructor(databaseName) {
-        let electron = window.require('electron')
-        let fs = electron.remote.require('fs')
-        let path = electron.remote.require('path')
-        let ipcRenderer  = electron.ipcRenderer
-        
         let databasePath = path.join(config.DB_PATH, databaseName + '.db')
         console.log('Using database ' + databasePath + '.')
         this.db = new Datastore({ filename: databasePath, autoload: true, timestampData: true });
@@ -17,8 +13,12 @@ class AbstractDatabaseService {
         this.db.insert(element, callback)
     }
 
-    remove(element, options, callback) {
-        this.db.remove(element, options, callback)
+    update(query, update, options, callback) {
+        this.db.update(query, update, options, callback)
+    }
+
+    remove(query, options, callback) {
+        this.db.remove(query, options, callback)
     }
 
     find(element, callback) {
@@ -30,6 +30,7 @@ class AbstractDatabaseService {
     }
 
     findById(id, callback) {
+        console.log('Trying to find id:' + id)
         this.db.findOne({ _id: id}, callback)
     }
 }

@@ -25,13 +25,9 @@ import DefaultHeader from './DefaultHeader';
 class DefaultLayout extends Component {
   constructor(props) {
     super(props)
-
-    console.log('Starting default layout.')
   }
-  render() {
 
-    console.log('Rendering default layout.')
-    
+  render() {
     return (
       <div className="app">
         <AppHeader fixed>
@@ -56,7 +52,7 @@ class DefaultLayout extends Component {
                       : (null);
                   },
                 )}
-                <Redirect from="/" to="/dashboard" />
+                <Redirect from="/" to="/galleries" />
               </Switch>
             </Container>
           </main>
