@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {NavLink} from 'reactstrap'
+const { shell } = require('electron')
 
 const propTypes = {
   children: PropTypes.node,
@@ -9,6 +10,16 @@ const propTypes = {
 const defaultProps = {};
 
 class DefaultFooter extends Component {
+  constructor(props) {
+    super(props)
+
+    this.openExternal = this.openExternal.bind(this)
+  }
+
+  openExternal(url) {
+    shell.openExternal(url)
+  }
+
   render() {
 
     // eslint-disable-next-line
@@ -17,9 +28,11 @@ class DefaultFooter extends Component {
     return (
       <React.Fragment>
         <span>
-          <a href="https://github.com/Land3r/Phototheque" target="_blank">Photothèque</a> par <a href="https://github.com/Land3r" target="_blank">Nicolas Gordat</a>
+          <span className='likeLink' onClick={() => this.openExternal('https://github.com/Land3r/Phototheque')}>Photothèque</span> par <span className='likeLink' onClick={() => this.openExternal('https://github.com/Land3r')}>Nicolas Gordat</span>
         </span>
-        <span className="ml-auto">Utilise <a href="https://coreui.io/react" target="_blank">CoreUI</a> pour <a href="https://reactjs.org/" target="_blank">Reactjs</a>. Packagé avec <a href="https://electronjs.org/" target="_blank">Electron</a></span>
+        <span className="ml-auto">
+          Utilise <span className='likeLink' onClick={() => this.openExternal('https://coreui.io/react')}>CoreUI</span> pour <span className='likeLink' onClick={() => this.openExternal('https://reactjs.org/')}>Reactjs</span>. Packagé avec <span className='likeLink' onClick={() => this.openExternal('https://electronjs.org/')}>Electron</span>
+        </span>
       </React.Fragment>
     );
   }
