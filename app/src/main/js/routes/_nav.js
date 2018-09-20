@@ -31,7 +31,7 @@ export default {
       divider: true,
     },
     {
-      name: 'Exit',
+      name: 'Quitter',
       url: '/exit',
       icon: 'fa fa-power-off',
       class: 'mt-auto',

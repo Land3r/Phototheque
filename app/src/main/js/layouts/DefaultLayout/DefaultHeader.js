@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink } from 'reactstrap';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom'
 
 import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import logo from '../../../res/images/brand/logo.png'
@@ -31,13 +32,10 @@ class DefaultHeader extends Component {
 
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
-            <NavLink href="/">Accueil</NavLink>
+            <Link to='/'>Accueil</Link>
           </NavItem>
           <NavItem className="px-3">
-            <NavLink href="#/users">Users</NavLink>
-          </NavItem>
-          <NavItem className="px-3">
-            <NavLink href="#">Paramètres</NavLink>
+            <Link to='/settings'>Paramètres</Link>
           </NavItem>
         </Nav>
         <Nav className="ml-auto" navbar>

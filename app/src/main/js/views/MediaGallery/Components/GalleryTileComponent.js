@@ -12,6 +12,13 @@ class GalleryTileComponent extends Component {
         }
     }
 
+    static getDerivedStateFromProps(props, state) {
+        if (props.image != state.image) {
+            state.image = props.image
+        }
+        return state
+    }
+
     render() {
         return(
             <Card>

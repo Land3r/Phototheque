@@ -54,6 +54,25 @@ class GalleryList extends Component {
             }
             else {
                 this.setState({galleries: items})
+
+                let mediasService = new MediasService()
+
+                items.forEach(gallery => {
+                    let randomImage = gallery.medias[Math.floor(Math.random() * gallery.medias.length)]
+                    mediasService.findById(randomImage, (error, item) => {
+                        if (error) {
+                            console.log(error)
+                        }
+                        else {
+                            let galleries = this.state.galleries
+                            let currentGalleryIndex = galleries.findIndex((element) => {
+                                return element._id == gallery._id
+                            })
+                            galleries[currentGalleryIndex].image = item.path
+                            this.setState({galleries: galleries})
+                        }
+                    })
+                })
             }
         })
 
@@ -99,7 +118,6 @@ class GalleryList extends Component {
                     console.log(error)
                 }
                 else {
-                    console.log('Item found:' + JSON.stringify(item))
                     if (item == null) {
                         let media = {
                             path: file,

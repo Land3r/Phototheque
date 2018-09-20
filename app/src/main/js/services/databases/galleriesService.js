@@ -33,8 +33,7 @@ class GalleriesService extends AbstractDatabaseService {
         this.insert([{
             name: 'Non catégorisé',
             description: 'Cette gallerie regroupe toutes les photos qui n\'appartiennent pas encore à d\'autres galleries',
-            medias: [],
-            image: null
+            medias: []
         }], (error, items) => {
             console.log('Galleries DB initialized.')
         })
