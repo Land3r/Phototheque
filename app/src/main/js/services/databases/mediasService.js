@@ -1,22 +1,22 @@
-import AbstractDatabaseService from './abstractDatabaseService'
+import AbstractDatabaseService from './abstractDatabaseService';
 
 class MediasService extends AbstractDatabaseService {
-    constructor() {
-        super('Medias')
-    }
+  constructor() {
+    super('Medias');
+  }
 
-    init() {
-        // Index
-        this.db.ensureIndex({fieldName: 'path', unique: true})
+  init() {
+    // Index
+    this.db.ensureIndex({ fieldName: 'path', unique: true });
 
-        console.log('Medias DB initialized.')
-    }
+    console.log('Medias DB initialized.');
+  }
 
-    reset() {
-        this.remove({}, {multi: true}, (error, items) => {
-            console.log('Medias DB reset.')
-        })
-    }
+  reset() {
+    this.remove({}, { multi: true }, (error, items) => {
+      console.log('Medias DB reset.');
+    });
+  }
 }
 
-export default MediasService
+export default MediasService;

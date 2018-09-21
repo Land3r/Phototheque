@@ -1,5 +1,5 @@
-import MediaGallery from './MediaGallery'
-import GalleryList from './GalleryList'
+import MediaGallery from './MediaGallery';
+import GalleryList from './GalleryList';
 
 
-export {MediaGallery, GalleryList}
+export { MediaGallery, GalleryList };

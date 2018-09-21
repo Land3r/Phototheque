@@ -7,6 +7,8 @@ const { BrowserWindow } = electron;
 const path = require('path');
 const url = require('url');
 
+const electronConfig = require('./electron-config.json')
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -14,7 +16,9 @@ let mainWindow;
 /** This function will create the mainWindow */
 function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({ width: 1366, height: 768 , frame: false});
+  mainWindow = new BrowserWindow(electronConfig);
+  // Open the DevTools.
+  mainWindow.webContents.openDevTools();
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
@@ -24,14 +28,14 @@ function createWindow() {
   }));
 
   // If dev environment
-  if (process.env.NODE_ENV != '') {
+  if (process.env.NODE_ENV == 'development') {
     // Open the DevTools.
     mainWindow.webContents.openDevTools();
     const {
       default: installExtension,
       REACT_DEVELOPER_TOOLS,
       REDUX_DEVTOOLS,
-    } = require('electron-devtools-installer'); // eslint-disable-line
+    } = require('electron-devtools-installer') // eslint-disable-line
     installExtension(REACT_DEVELOPER_TOOLS)
       .then(name => console.log(`Added Extension:  ${name}`))
       .catch(err => console.log('An error occurred: ', err));
@@ -47,6 +51,10 @@ function createWindow() {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null;
+  });
+  // Emitted when the window is ready to show
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
   });
 }
 
@@ -71,6 +79,3 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.

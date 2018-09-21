@@ -1,0 +1,25 @@
+{
+    "width": 1366,
+    "height": 768,
+    "center": true,
+    "minWidth": 200,
+    "minHeight": 200,
+    "maxWidth": 0,
+    "maxHeight": 0,
+
+    "resizable": true,
+    "movable": true,
+    "minimizable": true,
+    "maximizable": true,
+    "closable": true,
+    "fullscreenable": true,
+    "enableLargerThanScreen": true, 
+
+    "alwaysOnTop": false,
+    "fullscreen": false,
+    "skipTaskBar": false,
+    "autoHideMenuBar": false,
+
+    "show": false,
+    "frame": false
+}

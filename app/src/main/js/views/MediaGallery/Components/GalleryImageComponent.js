@@ -1,32 +1,32 @@
-import React, {Component} from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class GalleryImageComponent extends Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props);
 
-        this.toggleSidePanelItem = this.toggleSidePanelItem.bind(this)
-    
-        let name = props.path
-        this.state = {
-            ...props
-        }
-    }
+    this.toggleSidePanelItem = this.toggleSidePanelItem.bind(this);
 
-    toggleSidePanelItem(media) {
-        const { setSidePanelItem } = this.props;
-        setSidePanelItem(media)
-    }
+    const name = props.path;
+    this.state = {
+      ...props,
+    };
+  }
 
-    render() {
-        return(
-            <img src={this.state.path} onClick={e => {this.toggleSidePanelItem({...this.state})}} />
-        )
-    }
+  toggleSidePanelItem(media) {
+    const { setSidePanelItem } = this.props;
+    setSidePanelItem(media);
+  }
+
+  render() {
+    return (
+      <img src={this.state.path} onClick={(e) => { this.toggleSidePanelItem({ ...this.state }); }} />
+    );
+  }
 }
 
 GalleryImageComponent.propTypes = {
-    setSidePanelItem: PropTypes.func.isRequired
-}
+  setSidePanelItem: PropTypes.func.isRequired,
+};
 
-export default GalleryImageComponent
+export default GalleryImageComponent;

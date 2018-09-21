@@ -6,6 +6,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   context: path.join(__dirname, '../app'),
+  target: 'electron-main',
   devtool: 'source-map',
   entry: {
     app: [
@@ -40,10 +41,6 @@ module.exports = {
       use: ['css-loader'],
     },
     {
-      test: /\.svg$/,
-      use: 'react-svg-loader'
-    },
-    {
       test: /\.(ttf|woff|woff2|eot)$/,
       use: [{
         loader: 'file-loader',
@@ -53,7 +50,7 @@ module.exports = {
       }]
     },
     {
-      test: /\.(png|jpg|gif)$/,
+      test: /\.(png|jpg|gif|svg)$/,
       use: [{
         loader: 'file-loader',
         options: {
@@ -75,13 +72,20 @@ module.exports = {
     new ExtractTextPlugin('css/style.css'),
     new CopyWebpackPlugin([
       {
+        // Electron launcher.
         from: './src/main/app.js',
-        to: path.join(__dirname, '../app/build'),
+        to: path.join(__dirname, '../app/build')
       },
       {
+        // Site main page.
         from: './src/main/index.html',
-        to: path.join(__dirname, '../app/build'),
+        to: path.join(__dirname, '../app/build')
       },
+      {
+        // Application configuration file.
+        from: './src/main/electron-config.json',
+        to: path.join(__dirname, '../app/build')
+      }
     ]),
-  ],
+  ]
 };

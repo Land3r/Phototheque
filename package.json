@@ -81,6 +81,7 @@
     "exif-parser": "^0.1.12",
     "flag-icon-css": "^3.0.0",
     "font-awesome": "^4.7.0",
+    "fs": "0.0.1-security",
     "jquery": "^3.3.1",
     "nedb": "^1.8.0",
     "prop-types": "^15.6.2",

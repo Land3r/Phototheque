@@ -26,13 +26,13 @@ import DefaultHeader from './DefaultHeader';
 
 class DefaultLayout extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
     return (
       <div className="app">
-        <AppHeader fixed>
+        <AppHeader fixed className="electron-draguable">
           <DefaultHeader />
         </AppHeader>
         <div className="app-body">
@@ -44,16 +44,19 @@ class DefaultLayout extends Component {
             <AppSidebarMinimizer />
           </AppSidebar>
           <main className="main">
-            <AppBreadcrumb appRoutes={routes}/>
+            <AppBreadcrumb appRoutes={routes} />
             <Container fluid>
               <Switch>
-                {routes.map((route, idx) => {
-                    return route.component ? (<Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => (
-                        <route.component {...props} />
-                      )} />)
-                      : (null);
-                  },
-                )}
+                {routes.map((route, idx) => (route.component ? (<Route
+                  key={idx}
+                  path={route.path}
+                  exact={route.exact}
+                  name={route.name}
+                  render={props => (
+                    <route.component {...props} />
+                      )}
+                />)
+                      : (null)))}
                 <Redirect from="/" to="/galleries" />
               </Switch>
             </Container>
@@ -62,7 +65,7 @@ class DefaultLayout extends Component {
             <DefaultAside />
           </AppAside>
         </div>
-        <AppFooter>
+        <AppFooter className="electron-draguable">
           <DefaultFooter />
         </AppFooter>
       </div>

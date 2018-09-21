@@ -1,18 +1,19 @@
 // Here you can add other styles
 
+/* MediaGallery view style */
 .media-gallery {
-   line-height: 0;
-   -webkit-column-count: 5;
-   -webkit-column-gap: 0px;
-   -moz-column-count: 5;
-   -moz-column-gap: 0px;
-   column-count: 5;
-   column-gap: 0px;
-}
+    line-height: 0;
+    -webkit-column-count: 5;
+    -webkit-column-gap: 0px;
+    -moz-column-count: 5;
+    -moz-column-gap: 0px;
+    column-count: 5;
+    column-gap: 0px;
 
-.media-gallery img {
-    width: 100% !important;
-    height: auto !important;
+    img {
+        width: 100% !important;
+        height: auto !important;
+    }
 }
   
 @media (max-width: 1200px) {
@@ -47,6 +48,7 @@
     }
 }
 
+/* Bookmarks view style */
 @mixin plusMinus($width, $lineWidth, $color) {
     box-sizing: border-box;
     transition: transform 0.3s;
@@ -58,6 +60,7 @@
     &.collapse-closed {
       transform: rotate(0deg);
     }
+
     &::before {
       content: '';
       display: block;
@@ -69,6 +72,7 @@
       transform: rotate(90deg);
       transition: width 0.3s;
     }
+
     &.collapse-closed::before {
       content: '';
       display: block;
@@ -79,6 +83,7 @@
       bottom:$width /2 - $lineWidth/2;
       transform: rotate(90deg);
     }
+
     &::after {
       content: '';
       display: block;
@@ -94,8 +99,17 @@
     @include plusMinus(24px, 2px, #a1a1a1);
   }
 
+/* Generics */
 .mt-auto {
-  margin-top: auto !important;
+    margin-top: auto !important;
+}
+
+.electron-draguable {
+    -webkit-app-region: drag;
+}
+
+a, button, .likeLink {
+    -webkit-app-region: no-drag;
 }
 
 .likeLink {
@@ -111,14 +125,7 @@
     }
 }
 
-.app-header .navbar-toggler-icon {
+.app-header .no-toggler-icon > .navbar-toggler-icon,
+.app-header .no-toggler-icon.navbar-toggler:hover .navbar-toggler-icon {
     background-image: inherit;
-}
-
-.app-header .navbar-toggler:hover .navbar-toggler-icon {
-    background-image: inherit;
-}
-
-.electron-draguable {
-    -webkit-app-region: drag;
 }
