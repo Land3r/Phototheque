@@ -18,7 +18,9 @@ import {
 import navigation from '../../routes/_nav';
 // routes config
 import routes from '../../routes/routes';
-import DefaultAside from './DefaultAside';
+
+import DefaultAside from '../../containers/default_layout/default_aside';
+
 import DefaultFooter from './DefaultFooter';
 import DefaultHeader from './DefaultHeader';
 

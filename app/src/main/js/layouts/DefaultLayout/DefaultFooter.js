@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {NavLink} from 'reactstrap'
 const { shell } = require('electron')
 
 const propTypes = {

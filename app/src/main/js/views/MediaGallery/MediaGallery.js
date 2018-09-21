@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { Alert, Card, CardHeader, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
 
-import GalleryImageComponent from './Components/GalleryImageComponent'
+import GalleryImageComponent from './../../containers/media_gallery/components/gallery_image_component'
 
 import GalleriesService from '../../services/databases/galleriesService'
 import MediasService from '../../services/databases/mediasService'

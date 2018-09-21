@@ -1,38 +1,32 @@
 import React, {Component} from 'react'
-import {DefaultAsideContext} from '../../../layouts/DefaultLayout/DefaultAsideContext'
+import PropTypes from 'prop-types'
 
 class GalleryImageComponent extends Component {
     constructor(props) {
         super(props)
 
-        this.togglePanel = this.togglePanel.bind(this)
-
+        this.toggleSidePanelItem = this.toggleSidePanelItem.bind(this)
+    
         let name = props.path
         this.state = {
-            ...props,
-
-            asidecontext: {
-                name: name,
-                data: {},
-                isPanelOpen: false
-            }
+            ...props
         }
     }
 
-    togglePanel() {
-        let asidecontext = this.state.asidecontext
-        asidecontext.isPanelOpen = !asidecontext.isPanelOpen
-        this.setState({asidecontext: asidecontext})
-        console.log('Aside context:' + JSON.stringify(asidecontext))
+    toggleSidePanelItem(media) {
+        const { setSidePanelItem } = this.props;
+        setSidePanelItem(media)
     }
 
     render() {
         return(
-            <DefaultAsideContext.Provider value={this.state.asidecontext}>
-                <img src={this.state.path} onClick={this.togglePanel} />
-            </DefaultAsideContext.Provider>
+            <img src={this.state.path} onClick={e => {this.toggleSidePanelItem({...this.state})}} />
         )
     }
+}
+
+GalleryImageComponent.propTypes = {
+    setSidePanelItem: PropTypes.func.isRequired
 }
 
 export default GalleryImageComponent

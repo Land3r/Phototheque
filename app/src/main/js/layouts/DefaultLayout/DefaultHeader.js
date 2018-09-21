@@ -14,6 +14,15 @@ const propTypes = {
 const defaultProps = {};
 
 class DefaultHeader extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      ...props,
+
+      isSidetoggled: false
+    }
+  }
   render() {
 
     console.log(logo)
@@ -38,28 +47,11 @@ class DefaultHeader extends Component {
             <Link to='/settings'>Paramètres</Link>
           </NavItem>
         </Nav>
-        <Nav className="ml-auto" navbar>
-          <AppHeaderDropdown direction="down">
-            <DropdownToggle nav>
-            </DropdownToggle>
-            <DropdownMenu right style={{ right: 'auto' }}>
-              <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>
-              <DropdownItem><i className="fa fa-bell-o"></i> Updates<Badge color="info">42</Badge></DropdownItem>
-              <DropdownItem><i className="fa fa-envelope-o"></i> Messages<Badge color="success">42</Badge></DropdownItem>
-              <DropdownItem><i className="fa fa-tasks"></i> Tasks<Badge color="danger">42</Badge></DropdownItem>
-              <DropdownItem><i className="fa fa-comments"></i> Comments<Badge color="warning">42</Badge></DropdownItem>
-              <DropdownItem header tag="div" className="text-center"><strong>Settings</strong></DropdownItem>
-              <DropdownItem><i className="fa fa-user"></i> Profile</DropdownItem>
-              <DropdownItem><i className="fa fa-wrench"></i> Settings</DropdownItem>
-              <DropdownItem><i className="fa fa-usd"></i> Payments<Badge color="secondary">42</Badge></DropdownItem>
-              <DropdownItem><i className="fa fa-file"></i> Projects<Badge color="primary">42</Badge></DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem><i className="fa fa-shield"></i> Lock Account</DropdownItem>
-              <DropdownItem><i className="fa fa-lock"></i> Logout</DropdownItem>
-            </DropdownMenu>
-          </AppHeaderDropdown>
-        </Nav>
-        <AppAsideToggler className="d-md-down-none" />
+        <div className="ml-auto electron-draguable">
+        </div>
+        <span onClick={(event) => {this.setState({isSidetoggled: !this.state.isSidetoggled})}}>
+          <AppAsideToggler className={this.state.isSidetoggled ? 'fa fa-chevron-right ' : 'fa fa-chevron-left ' } />
+        </span>
         {/*<AppAsideToggler className="d-lg-none" mobile />*/}
       </React.Fragment>
     );

@@ -110,3 +110,15 @@
       text-decoration: underline;
     }
 }
+
+.app-header .navbar-toggler-icon {
+    background-image: inherit;
+}
+
+.app-header .navbar-toggler:hover .navbar-toggler-icon {
+    background-image: inherit;
+}
+
+.electron-draguable {
+    -webkit-app-region: drag;
+}
