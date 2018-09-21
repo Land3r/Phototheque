@@ -1,8 +1,6 @@
 const electron = require('electron');
 // Module to control application life.
-const { app } = electron;
-// Module to create native browser window.
-const { BrowserWindow } = electron;
+const { app, BrowserWindow, globalShortcut} = electron;
 
 const path = require('path');
 const url = require('url');
@@ -54,21 +52,36 @@ function createWindow() {
   });
   // Emitted when the window is ready to show
   mainWindow.once('ready-to-show', () => {
-    mainWindow.show();
-  });
+    mainWindow.show()
+  })
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', () => {
+  if(globalShortcut.register('CommandOrControl+f5', () => {
+    mainWindow.reload()
+  })) {
+    console.log('Shortcut CTRL+F5 registered.')
+  }
+  else {
+    console.log('Shortcut CTRL+F5 not registered (an error occured).')
+  }
+
+  createWindow()
+})
+
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll()
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
-    app.quit();
+    app.quit()
   }
 });
 
@@ -76,6 +89,6 @@ app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
-    createWindow();
+    createWindow()
   }
 });

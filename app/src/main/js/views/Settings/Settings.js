@@ -21,6 +21,7 @@ class Settings extends Component {
       ...props,
 
       electronConfig,
+      isConfirmExitModalOpen: false,
       isModified: false,
     };
   }
@@ -39,7 +40,6 @@ class Settings extends Component {
 
   onSettingsEdit(json) {
     this.setState({ isModified: true });
-    console.log(json);
   }
 
   componentWillUnmount() {
@@ -49,6 +49,22 @@ class Settings extends Component {
     } else {
 
     }
+  }
+
+  saveSettings(event) {
+      if (event) {
+        event.preventDefault()
+      }
+
+      console.log(this.state.electronConfig)
+  }
+
+  toggleConfirmModal(event) {
+      if (event) {
+          event.preventDefault()
+      }
+
+      this.setState({isConfirmExitModalOpen: !this.state.isConfirmExitModalOpen})
   }
 
   render() {
@@ -64,9 +80,30 @@ class Settings extends Component {
                 <h6>Paramètres de l'application</h6>
                 <p>Ces paramètres gouvernent la manière dont l'application se comporte.</p>
                 <ReactJsonView src={this.state.electronConfig} name={false} enableClipboard={false} displayDataTypes={false} onEdit={this.onSettingsEdit} />
+                <br />
                 <p>Plus de détails: <span className="likeLink" onClick={() => this.openExternal('https://electronjs.org/docs/api/browser-window#new-browserwindowoptions')}>https://electronjs.org/docs/api/browser-window#new-browserwindowoptions</span></p>
               </Col>
             </Row>
+            <Row>
+                <Col>
+                    <FormGroup>
+                        <Button onClick={this.saveSettings} color='primary'>Sauvegarder</Button>
+                        <Button onClick={this.toggleConfirmModal} color='secondary'>Annuler</Button>
+                    </FormGroup>
+                </Col>
+            </Row>
+            <Modal isOpen={this.state.isConfirmExitModalOpen} toggle={this.toggleConfirm} className='danger'>
+                <ModalHeader toggle={this.toggleConfirmModal}>
+                    Quitter sans sauvegarder ?
+                </ModalHeader>
+                <ModalBody>
+                    Etes vous sur de vouloir annuler les modifications effectuées ?
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" onClick={this.saveSettings}>Sauvegarder</Button>{' '}
+                    <Button color="secondary" onClick={this.toggleConfirmModal}>Ne pas sauvegarder</Button>
+                </ModalFooter>
+            </Modal>
           </CardBody>
         </Card>
       </div>
