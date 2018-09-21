@@ -15,7 +15,7 @@
   "author": "Tahnik Mustasin",
   "license": "MIT",
   "build": {
-    "productName": "electron-react",
+    "productName": "Phototheque",
     "win": {
       "target": "NSIS"
     },
@@ -63,6 +63,7 @@
     "file-loader": "^1.1.11",
     "node-sass": "^4.9.0",
     "react-hot-loader": "^4.1.2",
+    "react-svg-loader": "^2.1.0",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
     "webpack": "^4.6.0",
@@ -78,6 +79,7 @@
     "bootstrap": "^4.1.3",
     "chart.js": "^2.7.2",
     "classnames": "^2.2.6",
+    "deepmerge": "^2.1.1",
     "exif-parser": "^0.1.12",
     "flag-icon-css": "^3.0.0",
     "font-awesome": "^4.7.0",
@@ -92,7 +94,6 @@
     "react-redux": "^5.0.7",
     "react-router": "4.2.0",
     "react-router-dom": "4.2.2",
-    "react-svg-loader": "^2.1.0",
     "reactstrap": "^6.4.0",
     "redux": "^4.0.0",
     "simple-line-icons": "^2.4.1"

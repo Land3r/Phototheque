@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Row, Col, Button, Input, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, CardDeck, Card, CardBody, CardHeader } from 'reactstrap'
 import ReactJsonView from 'react-json-view'
+import {Router} from 'react-router-dom'
 
 const { shell } = require('electron')
 const electronConfig = require('../../../electron-config.json')
@@ -11,17 +12,21 @@ class Settings extends Component {
      * @param {*} props The props passed to the component.
      */
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.getInitialData = this.getInitialData.bind(this);
-    this.openExternal = this.openExternal.bind(this);
-    this.onSettingsEdit = this.onSettingsEdit.bind(this);
+    this.getInitialData = this.getInitialData.bind(this)
+    this.openExternal = this.openExternal.bind(this)
+    this.onSettingsEdit = this.onSettingsEdit.bind(this)
+    this.toggleConfirmModal = this.toggleConfirmModal.bind(this)
+    this.doNotSaveAndExit = this.doNotSaveAndExit.bind(this)
+    this.confirmDoNotSaveAndExit = this.confirmDoNotSaveAndExit.bind(this)
 
     this.state = {
       ...props,
 
       electronConfig,
       isConfirmExitModalOpen: false,
+      hasAskedConfirmation: false,
       isModified: false,
     };
   }
@@ -43,28 +48,37 @@ class Settings extends Component {
   }
 
   componentWillUnmount() {
-    if (this.state.isModified) {
-      // Save modified data
-      alert('Wow, you have modified something');
-    } else {
-
+    if (this.state.isModified && !this.state.hasAskedConfirmation) {
+      this.doNotSaveAndExit()
     }
   }
 
-  saveSettings(event) {
-      if (event) {
-        event.preventDefault()
+  saveSettings() {
+      if (this.state.isConfirmExitModalOpen) {
+          this.toggleConfirmModal()
       }
-
       console.log(this.state.electronConfig)
   }
 
-  toggleConfirmModal(event) {
-      if (event) {
-          event.preventDefault()
+  toggleConfirmModal() {
+      this.setState({isConfirmExitModalOpen: !this.state.isConfirmExitModalOpen, hasAskedConfirmation: true})
+  }
+
+  doNotSaveAndExit() {
+      if (this.state.isModified) {
+          this.toggleConfirmModal()
+      }
+      else {
+        this.props.history.push('/')
+      }
+  }
+
+  confirmDoNotSaveAndExit() {
+      if (this.state.isConfirmExitModalOpen) {
+          this.toggleConfirmModal()
       }
 
-      this.setState({isConfirmExitModalOpen: !this.state.isConfirmExitModalOpen})
+      this.props.history.push('/')
   }
 
   render() {
@@ -87,8 +101,8 @@ class Settings extends Component {
             <Row>
                 <Col>
                     <FormGroup>
-                        <Button onClick={this.saveSettings} color='primary'>Sauvegarder</Button>
-                        <Button onClick={this.toggleConfirmModal} color='secondary'>Annuler</Button>
+                        <Button onClick={this.saveSettings} color='primary'>Sauvegarder</Button>&nbsp;
+                        <Button onClick={this.doNotSaveAndExit} color='secondary'>Annuler</Button>
                     </FormGroup>
                 </Col>
             </Row>
@@ -100,8 +114,8 @@ class Settings extends Component {
                     Etes vous sur de vouloir annuler les modifications effectuées ?
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={this.saveSettings}>Sauvegarder</Button>{' '}
-                    <Button color="secondary" onClick={this.toggleConfirmModal}>Ne pas sauvegarder</Button>
+                    <Button color='primary' onClick={this.saveSettings}>Sauvegarder</Button>{' '}
+                    <Button color='secondary' onClick={this.confirmDoNotSaveAndExit}>Ne pas sauvegarder</Button>
                 </ModalFooter>
             </Modal>
           </CardBody>

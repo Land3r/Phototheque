@@ -1,9 +1,11 @@
 const electron = require('electron');
-// Module to control application life.
-const { app, BrowserWindow, globalShortcut} = electron;
-
+const merge = require('deepmerge')
 const path = require('path');
 const url = require('url');
+
+const { app, BrowserWindow, globalShortcut} = electron;
+const package = require('../../package.json')
+const appFolder = app.getPath('appData')
 
 const electronConfig = require('./electron-config.json')
 
@@ -14,9 +16,19 @@ let mainWindow;
 /** This function will create the mainWindow */
 function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow(electronConfig);
+  mainWindow = new BrowserWindow(merge.all(
+    [
+      electronConfig,
+      {
+        icon: path.join(__dirname, './res/images/appIcon.png'),
+        title: 'Phototheque'
+      }
+    ]));
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+
+  app.setPath('userData', path.join(appFolder, package.build.productName))
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({

@@ -1,6 +1,10 @@
+import path from 'path'
+const {app} = require('electron').remote
+
 const config = {
-  RUN_FOLDER: 'C:\\Users\\nicol\\Documents\\GitHub\\Phototheque',
-  DB_PATH: 'C:\\Users\\nicol\\Documents\\GitHub\\Phototheque\\databases',
+  APP_PATH: app.getAppPath(),
+  USER_PATH: app.getPath('userData'),
+  DB_PATH: path.join(app.getPath('userData'), 'databases'),
 };
 
 export { config };
