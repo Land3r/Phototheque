@@ -57,17 +57,19 @@ class GalleryList extends Component {
         const mediasService = new MediasService();
 
         items.forEach((gallery) => {
-          const randomImage = gallery.medias[Math.floor(Math.random() * gallery.medias.length)];
-          mediasService.findById(randomImage, (error, item) => {
-            if (error) {
-              console.log(error);
-            } else {
-              const galleries = this.state.galleries;
-              const currentGalleryIndex = galleries.findIndex(element => element._id == gallery._id);
-              galleries[currentGalleryIndex].image = item.path;
-              this.setState({ galleries });
-            }
-          });
+          if (gallery.medias.length != 0) {
+            const randomImage = gallery.medias[Math.floor(Math.random() * gallery.medias.length)];
+            mediasService.findById(randomImage, (error, item) => {
+              if (error) {
+                console.log(error);
+              } else {
+                const galleries = this.state.galleries;
+                const currentGalleryIndex = galleries.findIndex(element => element._id == gallery._id);
+                galleries[currentGalleryIndex].image = item.path;
+                this.setState({ galleries });
+              }
+            });
+          }
         });
       }
     });

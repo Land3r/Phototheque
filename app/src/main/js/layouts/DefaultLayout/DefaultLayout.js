@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import merge from 'deepmerge'
 import { Container } from 'reactstrap';
+import GalleriesService from '../../services/databases/galleriesService'
 
 import {
   AppAside,
@@ -14,8 +16,9 @@ import {
   AppSidebarMinimizer,
   AppSidebarNav,
 } from '@coreui/react';
-// sidebar nav config
+// sidebar default nav
 import navigation from '../../routes/_nav';
+
 // routes config
 import routes from '../../routes/routes';
 
@@ -27,9 +30,59 @@ import DefaultHeader from './DefaultHeader';
 class DefaultLayout extends Component {
   constructor(props) {
     super(props);
+
+    this.getGalleriesNavLink = this.getGalleriesNavLink.bind(this)
+    this.getInitialState = this.getInitialState.bind(this)
+
+    this.state = {
+      ...props
+    }
+
+    this.getInitialState()
+  }
+
+  getInitialState() {
+    const galleriesService = new GalleriesService()
+    galleriesService.find({}, (error, items) => {
+      if (error) {
+        console.log(error)
+      }
+      else {
+        const { setGalleries } = this.props
+        setGalleries(items)
+      }
+    })
+  }
+
+  getGalleriesNavLink() {
+    let result = []
+    if (this.props.galleries != [] && this.props.galleries.length != 0) {
+      result = this.props.galleries.map((element, key) => {
+        console.log(JSON.stringify(element))
+        let navElement = {
+          name: element.name,
+          url: '/galleries/'+element._id,
+          icon: 'fa fa-image',
+        }
+        return navElement
+      });
+    }
+
+    console.log('returned ' + JSON.stringify(result))
+    return result
   }
 
   render() {
+    console.log(JSON.stringify(navigation))
+
+    const navGalleries = this.getGalleriesNavLink()
+    navGalleries.map()
+    let navConfig = navigation
+    if (navGalleries.length != 0) {
+      navConfig = {items : [{...navConfig.items, ...navGalleries}]}
+    }
+
+    console.log(JSON.stringify(navConfig))
     return (
       <div className="app">
         <AppHeader fixed className="electron-draguable">
@@ -39,7 +92,7 @@ class DefaultLayout extends Component {
           <AppSidebar fixed display="lg">
             <AppSidebarHeader />
             <AppSidebarForm />
-            <AppSidebarNav navConfig={navigation} {...this.props} />
+            <AppSidebarNav navConfig={navConfig} {...this.props} />
             <AppSidebarFooter />
             <AppSidebarMinimizer />
           </AppSidebar>

@@ -4,7 +4,7 @@ const path = require('path');
 const url = require('url');
 
 const { app, BrowserWindow, globalShortcut} = electron;
-const package = require('../../package.json')
+const config = require('./js/config/electron-config')
 const appFolder = app.getPath('appData')
 
 const electronConfig = require('./electron-config.json')
@@ -28,7 +28,7 @@ function createWindow() {
   mainWindow.webContents.openDevTools();
 
 
-  app.setPath('userData', path.join(appFolder, package.build.productName))
+  // app.setPath('userData', path.join(appFolder, config.productName))
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
@@ -39,7 +39,7 @@ function createWindow() {
 
   // If dev environment
   if (process.env.NODE_ENV == 'development') {
-    // Open the DevTools.
+    // Open the DevTools by default.
     mainWindow.webContents.openDevTools();
     const {
       default: installExtension,
@@ -72,6 +72,16 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
+  if (globalShortcut.register('CommandOrControl+f12', () => {
+    // Toggle the DevTools.
+    mainWindow.webContents.toggleDevTools();
+  })) {
+    console.log('Shortcut CTRL+F12 registered.')
+  }
+  else {
+    console.log('Shortcut CTRL+F12 not registered (an error occured).')
+  }
+
   if(globalShortcut.register('CommandOrControl+f5', () => {
     mainWindow.reload()
   })) {
