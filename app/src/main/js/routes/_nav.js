@@ -23,11 +23,6 @@ export default {
       icon: 'fa fa-image',
     },
     {
-      name: 'Gallerie 1',
-      url: '/galleries/1',
-      icon: 'fa fa-image',
-    },
-    {
       divider: true,
     },
     {

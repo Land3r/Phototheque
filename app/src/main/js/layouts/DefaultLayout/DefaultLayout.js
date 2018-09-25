@@ -76,10 +76,11 @@ class DefaultLayout extends Component {
     console.log(JSON.stringify(navigation))
 
     const navGalleries = this.getGalleriesNavLink()
-    navGalleries.map()
     let navConfig = navigation
     if (navGalleries.length != 0) {
-      navConfig = {items : [{...navConfig.items, ...navGalleries}]}
+      navGalleries.map((element, key) => {
+        navConfig.items.splice(navConfig.items.length - 2, 0, element);
+      })
     }
 
     console.log(JSON.stringify(navConfig))

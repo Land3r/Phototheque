@@ -28,13 +28,13 @@ function createWindow() {
   mainWindow.webContents.openDevTools();
 
 
-  // app.setPath('userData', path.join(appFolder, config.productName))
+  app.setPath('userData', path.join(appFolder, config.productName))
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',
-    slashes: true,
+    slashes: true
   }));
 
   // If dev environment
