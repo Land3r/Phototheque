@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Alert, Card, CardHeader, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
+import { Alert, Card, CardHeader, CardText, CardBody, CardTitle, CardSubtitle, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup } from 'reactstrap';
 
 import GalleryImageComponent from './../../containers/media_gallery/components/gallery_image_component';
 
@@ -11,6 +11,8 @@ class MediaGallery extends Component {
     super(props);
 
     this.getInitialData = this.getInitialData.bind(this);
+    this.toggleEditGalleryModal = this.toggleEditGalleryModal.bind(this);
+    this.editGallery = this.editGallery.bind(this)
 
     this.state = {
       ...props,
@@ -25,7 +27,11 @@ class MediaGallery extends Component {
       },
 
       alertText: '',
-
+      isEditGalleryFormModalOpen: false,
+      editGallery: {
+        name: '',
+        description: ''
+      },
       images: [],
     };
 
@@ -33,7 +39,6 @@ class MediaGallery extends Component {
   }
 
   getInitialData() {
-    // TODO: Add media retrieval
     const galleriesService = new GalleriesService();
     galleriesService.findById(this.state.match.params.id, (error, item) => {
       if (error) {
@@ -59,8 +64,17 @@ class MediaGallery extends Component {
     });
   }
 
+  toggleEditGalleryModal() {
+    this.setState({isEditGalleryFormModalOpen: !this.state.isEditGalleryFormModalOpen})
+  }
+
+  editGallery() {
+    console.log(this.state.editGallery)
+  }
+
   render() {
     const isAlertVisible = this.state.alertText != '';
+    const isEditGalleryEnabled = this.state.editGallery.name != '' && this.state.editGallery.description != '' && this.state.editGallery.name != this.state.gallery.name && this.state.editGallery.description != this.state.gallery.description
 
     const images = this.state.images.map((image, key) => (<GalleryImageComponent {...image} key={key} />));
 
@@ -70,6 +84,7 @@ class MediaGallery extends Component {
         <Card>
           <CardHeader>
             <CardTitle>{this.state.gallery.name}</CardTitle>
+            <span className='card-actions'><i className="fa fa-pencil-square-o action-icon fa-lg" onClick={this.toggleEditGalleryModal}></i></span>
           </CardHeader>
           <CardBody>
             <CardText><small className="text-muted">Créé le {this.state.gallery.createdAt.toLocaleString('fr-FR')} / Mis à jour le {this.state.gallery.updatedAt.toLocaleString('fr-FR')}</small></CardText>
@@ -79,6 +94,23 @@ class MediaGallery extends Component {
             </section>
           </CardBody>
         </Card>
+        <Modal isOpen={this.state.isEditGalleryFormModalOpen} toggle={this.toggleEditGalleryModal} className="modal-primary">
+          <ModalHeader toggle={this.toggleNewGalleryForm}>Modifier la gallerie</ModalHeader>
+          <ModalBody>
+            <FormGroup>
+              <Label htmlFor="name">Nom</Label>
+              <Input type="text" id="name" placeholder="Entrez le nom de la gallerie" value={this.state.editGallery.name} onChange={(event) => { let gallery = this.state.editGallery; gallery.name = event.target.value; this.setState({ editGallery: gallery }); }} />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="description">Description</Label>
+              <Input type="text" id="description" placeholder="Entrez la description de la gallerie" value={this.state.editGallery.description} onChange={(event) => { let gallery = this.state.editGallery; gallery.description = event.target.value; this.setState({ editGallery: gallery }); }} />
+            </FormGroup>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.editGallery} disabled={!isEditGalleryEnabled}>Modifier la gallerie</Button>{' '}
+            <Button color="secondary" onClick={this.toggleEditGalleryModal}>Annuler</Button>
+          </ModalFooter>
+        </Modal>
       </div>
     );
   }

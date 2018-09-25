@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, Badge } from 'reactstrap';
 import MediasService from '../../../services/databases/mediasService';
 import { Link } from 'react-router-dom';
+import UncategorizedImage from '../../../../res/images/galleries/uncategorized.jpg'
 
 class GalleryTileComponent extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class GalleryTileComponent extends Component {
     return (
       <Card>
         <Link to={`/galleries/${this.state._id}`}>
-          <CardImg top width="100%" src={this.state.image || 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180'} alt={this.state.name} />
+          <CardImg top width="100%" src={this.state.image || UncategorizedImage} alt={this.state.name} />
         </Link>
         <CardBody>
           <CardTitle>

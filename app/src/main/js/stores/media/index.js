@@ -3,9 +3,9 @@ import { MEDIA } from './default_state';
 
 export default (state = MEDIA, action) => {
   switch (action.type) {
-    case MEDIA_ACTIONS.ITEM_SET:
+    case MEDIA_ACTIONS.MEDIA_SET:
       return { ...state, media: action.item };
-    case MEDIA_ACTIONS.ITEM_CLEAR:
+    case MEDIA_ACTIONS.MEDIA_CLEAR:
       return { ...state, media: null };
     default:
       return state;

@@ -129,3 +129,20 @@ a, button, .likeLink {
 .app-header .no-toggler-icon.navbar-toggler:hover .navbar-toggler-icon {
     background-image: inherit;
 }
+
+.card-actions {
+    position: absolute;
+    top: 1rem;
+    right: 1rem
+}
+
+.action-icon {
+    &:hover {
+        cursor: pointer;
+        color: green;
+    }
+}
+
+button:disabled {
+    cursor: not-allowed
+}

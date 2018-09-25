@@ -30,9 +30,32 @@ class DefaultAside extends Component {
     }
   }
 
+  formatMediaTitle(mediaPath) {
+    let mediaParts = mediaPath.split('\\')
+    if (mediaParts.length > 0) {
+      let mediaBase = ''
+      let mediaName = ''
+      for (let index = 0; index < mediaParts.length - 1; index++) {
+        mediaBase += mediaParts[index] + '\\';
+      }
+      mediaName = mediaParts[mediaParts.length - 1]
+
+      return (
+        <React.Fragment>
+          {mediaBase}<br />
+          <span style={{'fontWeight': 'bold'}}>{mediaName}</span>
+        </React.Fragment>
+      )
+    }
+    else {
+      return mediaPath
+    }
+  }
+
   render() {
     // eslint-disable-next-line
     const { children, ...attributes } = this.props;
+    const mediaTitle = this.props.media.media ? this.formatMediaTitle(this.props.media.media.path) : ''
 
     return (
       <React.Fragment>
@@ -52,8 +75,8 @@ class DefaultAside extends Component {
           <TabPane tabId="1">
             <Row>
               <Col>
-                <div style={{ padding: '15px' }}>
-                  <h4>{this.props.media.media ? this.props.media.media.path : ''}</h4>
+                <div style={{ padding: '15px', wordWrap: 'break-word' }}>
+                  <h4>{mediaTitle}</h4>
                 </div>
               </Col>
             </Row>

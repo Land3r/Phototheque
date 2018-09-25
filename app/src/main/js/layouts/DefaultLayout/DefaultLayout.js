@@ -60,7 +60,6 @@ class DefaultLayout extends Component {
     let result = []
     if (this.props.galleries != [] && this.props.galleries.length != 0) {
       result = this.props.galleries.map((element, key) => {
-        console.log(JSON.stringify(element))
         let navElement = {
           name: element.name,
           url: '/galleries/'+element._id,
@@ -70,12 +69,10 @@ class DefaultLayout extends Component {
       });
     }
 
-    console.log('returned ' + JSON.stringify(result))
     return result
   }
 
   render() {
-    console.log(JSON.stringify(navigation))
 
     const navGalleries = this.getGalleriesNavLink()
     let navConfig = this.state.navConfig
@@ -93,7 +90,6 @@ class DefaultLayout extends Component {
       })
     }
 
-    console.log(JSON.stringify(navConfig))
     return (
       <div className="app">
         <AppHeader fixed className="electron-draguable">

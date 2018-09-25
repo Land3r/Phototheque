@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { setItem } from '../../stores/media/actions';
 import DefaultAside from '../../layouts/DefaultLayout/DefaultAside';
 
 /*

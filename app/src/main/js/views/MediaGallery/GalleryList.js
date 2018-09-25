@@ -25,6 +25,7 @@ class GalleryList extends Component {
     this.addNewGallery = this.addNewGallery.bind(this);
     this.toggleScanAllDirectories = this.toggleScanAllDirectories.bind(this);
     this.addNewDirectory = this.addNewDirectory.bind(this);
+    this.scanAllDirectories = this.scanAllDirectories.bind(this);
 
     this.state = {
       ...props,
@@ -125,7 +126,6 @@ class GalleryList extends Component {
                 if (error) {
                   console.log(error);
                 } else {
-                  console.log(numberOfItems);
                 }
               });
             }
@@ -141,7 +141,6 @@ class GalleryList extends Component {
                 if (error) {
                   console.log(error);
                 } else {
-                  console.log(numberOfItems);
                 }
               });
             }
@@ -180,12 +179,64 @@ class GalleryList extends Component {
     }
 
     this.state.folders.map((element, key) => {
-      this.readDirectory(element);
+      this.readDirectory(element.directory);
     });
   }
 
   readDirectory(directory) {
-    console.log(directory);
+    const fileService = new FileService();
+    const scanService = new ScannerService();
+    const mediasService = new MediasService();
+    const foldersService = new FoldersService();
+    const galleriesService = new GalleriesService();
+    
+    const files = fileService.readFolder(directory, file => (file.toLowerCase().endsWith('.jpg') || file.toLowerCase().endsWith('.jpeg')));
+
+    files.forEach((file) => {
+      const fileContent = scanService.readFile(file);
+      const exifData = scanService.readExifData(fileContent);
+      const mediaFromDb = {};
+
+      // If in database, update, else create.
+      mediasService.findOne({ path: file }, (error, item) => {
+        if (error) {
+          console.log(error);
+        } else if (item == null) {
+          const media = {
+            path: file,
+            exif: exifData,
+          };
+          mediasService.insert(media, (error, item) => {
+            if (error) {
+              console.log(error);
+            } else {
+              // Item created with success.
+              galleriesService.addMediasToGallery(item, { name: 'Non catégorisé' }, (error, numberOfItems, upsets) => {
+                if (error) {
+                  console.log(error);
+                } else {
+                }
+              });
+            }
+          });
+        } else {
+          // UPDATE
+          mediasService.update({ _id: item._id }, { $set: { exif: exifData } }, { multi: false, upsert: false }, (error, numberOfItems, upsets) => {
+            if (error) {
+              console.log(error);
+            } else {
+              // Item updated with success.
+              galleriesService.addMediasToGallery(item, { name: 'Non catégorisé' }, (error, numberOfItems, upsets) => {
+                if (error) {
+                  console.log(error);
+                } else {
+                }
+              });
+            }
+          });
+        }
+      });
+    });
   }
 
   toggleNewGalleryForm() {

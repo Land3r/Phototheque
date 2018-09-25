@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setItem } from '../../stores/galleries/actions'
+import { setGalleries } from '../../stores/galleries/actions'
 import DefaultLayout from '../../layouts/DefaultLayout/DefaultLayout';
 
 /*
@@ -16,7 +16,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => ({
   setGalleries: (item) => {
-    dispatch(setItem(item));
+    dispatch(setGalleries(item));
   },
 });
 

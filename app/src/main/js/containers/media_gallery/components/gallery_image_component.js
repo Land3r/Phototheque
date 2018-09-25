@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setItem } from '../../../stores/media/actions';
+import { setMedia } from '../../../stores/media/actions';
 import GalleryImageComponent from '../../../views/MediaGallery/Components/GalleryImageComponent';
 
 function mapStateToProps(state) {
@@ -8,7 +8,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => ({
   setSidePanelItem: (item) => {
-    dispatch(setItem(item));
+    dispatch(setMedia(item));
   },
 });
 
