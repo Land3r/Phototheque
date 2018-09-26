@@ -41,8 +41,7 @@ class MediaGallery extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.prevProps.match)
-    if (this.prevProps.match.params.id != this.props.match.params.id) {
+    if (prevProps.match.params.id != this.props.match.params.id) {
       this.getInitialData()
     }
   }
