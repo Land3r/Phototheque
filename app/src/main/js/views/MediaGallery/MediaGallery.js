@@ -6,6 +6,10 @@ import GalleryImageComponent from './../../containers/media_gallery/components/g
 import GalleriesService from '../../services/databases/galleriesService';
 import MediasService from '../../services/databases/mediasService';
 
+/**
+ * Media Gallery component.
+ * Used to display a Gallery of medias
+ */
 class MediaGallery extends Component {
   constructor(props) {
     super(props);
@@ -36,26 +40,45 @@ class MediaGallery extends Component {
     };
   }
 
+  /**
+   * ComponentDidMount lifecycle method.
+   * See https://reactjs.org/docs/react-component.html#componentdidmount for more info.
+   */
   componentDidMount() {
     this.getInitialData()
   }
 
+  /**
+   * ComponentDidUpdate lifecycle method.
+   * See https://reactjs.org/docs/react-component.html#componentdidupdate for more info.
+   * @param {*} prevProps The previous props.
+   * @param {*} prevState The previous state.
+   * @param {*} snapshot The snapshot.
+   */
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.match.params.id != this.props.match.params.id) {
+      console.log('Component reload (from ' + prevProps.match.params.id + ' to ' + this.props.match.params.id + ').')
       this.getInitialData()
     }
   }
 
+  /**
+   * Gets the initial data used by the component.
+   */
   getInitialData() {
     const galleriesService = new GalleriesService();
-    galleriesService.findById(this.state.match.params.id, (error, item) => {
+    galleriesService.findById(this.props.match.params.id, (error, item) => {
       if (error) {
         console.log(error);
       } else if (item == null) {
         // Gallery not found.
         this.setState({ alertText: `La gallerie qui a pour id ${this.state.match.params.id} n'a pas été trouvée.` });
       } else {
-        this.setState({ gallery: item });
+        this.setState({ gallery: item,
+          editGallery : {
+            name: item.name,
+            description: item.description
+          }});
 
         // Get medias
         const mediasService = new MediasService();
@@ -63,23 +86,31 @@ class MediaGallery extends Component {
           if (error) {
             console.log(error);
           } else {
-            const images = this.state.images;
-            images.push(...items);
-            this.setState({ images });
+            this.setState({ images: [...items] });
           }
         });
       }
     });
   }
 
+  /**
+   * Toggles the modal for editing the gallery.
+   */
   toggleEditGalleryModal() {
     this.setState({isEditGalleryFormModalOpen: !this.state.isEditGalleryFormModalOpen})
   }
 
+  /**
+   * Triggers the update of the gallery based on the modal for editing the gallery input.
+   */
   editGallery() {
     console.log(this.state.editGallery)
   }
 
+  /**
+   * Renders the component.
+   * See https://reactjs.org/docs/react-component.html#render for more info.
+   */
   render() {
     const isAlertVisible = this.state.alertText != '';
     const isEditGalleryEnabled = this.state.editGallery.name != '' && this.state.editGallery.description != '' && this.state.editGallery.name != this.state.gallery.name && this.state.editGallery.description != this.state.gallery.description

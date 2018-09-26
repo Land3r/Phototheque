@@ -6,7 +6,6 @@ const path = require('path');
 class AbstractDatabaseService {
   constructor(databaseName) {
     const databasePath = path.join(config.DB_PATH, `${databaseName}.db`);
-    console.log(`Using database ${databasePath}.`);
     this.db = new Datastore({ filename: databasePath, autoload: true, timestampData: true });
   }
 
@@ -31,7 +30,6 @@ class AbstractDatabaseService {
   }
 
   findById(id, callback) {
-    console.log(`Trying to find id:${id}`);
     this.db.findOne({ _id: id }, callback);
   }
 }
