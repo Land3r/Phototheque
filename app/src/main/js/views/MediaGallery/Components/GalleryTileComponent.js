@@ -29,7 +29,7 @@ class GalleryTileComponent extends Component {
         <CardBody>
           <CardTitle>
             {this.state.name}&nbsp;
-            <Badge color="primary" pill>{this.state.medias.length}</Badge>
+            <Badge color="primary" pill>{/*this.state.medias.length*/}</Badge>
           </CardTitle>
           <CardText><small className="text-muted">Créé le {this.state.createdAt.toLocaleString('fr-FR')} / Mis à jour le {this.state.updatedAt.toLocaleString('fr-FR')}</small></CardText>
           <CardText>{this.state.description}</CardText>

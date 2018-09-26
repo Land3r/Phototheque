@@ -12,7 +12,7 @@
     "dist": "npm run prod && electron-builder",
     "postinstall": "electron-builder install-app-deps"
   },
-  "author": "Tahnik Mustasin",
+  "author": "Nicolas Gordat",
   "license": "MIT",
   "build": {
     "appId": "com.electron.phototheque",
@@ -41,7 +41,7 @@
       "allowToChangeInstallationDirectory": true,
       "installerIcon": "./app/src/main/res/images/installer/installIcon.ico",
       "uninstallerIcon": "./app/src/main/res/images/installer/uninstallIcon.ico",
-      "uninstallDisplayName": "Désinstalleur Phototheque",
+      "uninstallDisplayName": "Phototheque",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "menuCategory": "Phototheque",

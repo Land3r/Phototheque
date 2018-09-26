@@ -10,6 +10,7 @@ class FoldersService extends AbstractDatabaseService {
     this.db.ensureIndex({ fieldName: 'directory', unique: true });
 
     // No Sample data
+    console.log('Folders DB initialized.');
   }
 
   reset() {

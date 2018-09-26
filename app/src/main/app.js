@@ -16,23 +16,18 @@ let mainWindow;
 /** This function will create the mainWindow */
 function createWindow() {
   // Create the browser window.
+
+  if ()
+
   mainWindow = new BrowserWindow(merge.all(
     [
       electronConfig,
       {
-        icon: path.join(__dirname, './res/images/appIcon.png'),
+        icon: path.join(__dirname, './res/images/appIcon.ico'),
         title: 'Phototheque'
       }
     ]));
 
-    console.log('Arguments elctron:' + JSON.stringify(merge.all(
-      [
-        electronConfig,
-        {
-          icon: path.join(__dirname, './res/images/appIcon.png'),
-          title: 'Phototheque'
-        }
-      ])))
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 

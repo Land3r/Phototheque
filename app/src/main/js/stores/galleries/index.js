@@ -9,6 +9,18 @@ export default (state = GALLERIES, action) => {
     case GALLERIES_ACTIONS.GALLERIES_ADD:
         galleries.push(action.item)
       return { ...state, galleries: galleries };
+    case GALLERIES_ACTIONS.GALLERIES_UPDATE:
+      let galleryIndex = galleries.findIndex((element) => {
+        return element._id == action.item._id
+      })
+      if (galleryIndex != -1) {
+        galleries.splice(galleryIndex, 1, {...action.item})
+        return {...state, galleries: galleries}
+      }
+      else {
+        console.log('Gallery with id ' + action.item._id + ' couldn\'t be updated as it was not found on store.')
+        return {...state}
+      }
     case GALLERIES_ACTIONS.GALLERIES_REMOVE:
         let galleriyId = state.galleries.findIndex(action.item)
         galleries.splice(galleriyId, 1)

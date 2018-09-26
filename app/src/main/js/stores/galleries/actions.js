@@ -15,6 +15,11 @@ export const removeGalleries = item => ({
     item
 });
 
+export const updateGalleries = item => ({
+  type: GALLERIES_ACTIONS.GALLERIES_UPDATE,
+  item
+})
+
 export const clearGalleries = () => ({
   type: GALLERIES_ACTIONS.GALLERIES_CLEAR,
 });

@@ -37,9 +37,11 @@ class DefaultLayout extends Component {
     this.state = {
       ...props,
 
-      navConfig: navigation
+      defaultNavConfig: navigation
     }
+  }
 
+  componentDidMount() {
     this.getInitialState()
   }
 
@@ -75,18 +77,11 @@ class DefaultLayout extends Component {
   render() {
 
     const navGalleries = this.getGalleriesNavLink()
-    let navConfig = this.state.navConfig
+    let navConfig = JSON.parse(JSON.stringify(this.state.defaultNavConfig))
+
     if (navGalleries.length != 0) {
       navGalleries.map((element, key) => {
-        let elementAlreadyFound = false
-        if (navConfig.items.map((elementAlreadyThere, keyAlreadyThere) => {
-          if (elementAlreadyThere.name == element.name) {
-            elementAlreadyFound = true
-          }
-        }))
-        if (!elementAlreadyFound) {
-          navConfig.items.splice(navConfig.items.length - 2, 0, element); 
-        }
+          navConfig.items.splice(navConfig.items.length - 2, 0, element);
       })
     }
 

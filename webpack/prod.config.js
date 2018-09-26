@@ -50,7 +50,7 @@ module.exports = {
       }]
     },
     {
-      test: /\.(png|jpg|gif|svg)$/,
+      test: /\.(png|jpg|gif|svg|ico)$/,
       use: [{
         loader: 'file-loader',
         options: {
@@ -85,6 +85,11 @@ module.exports = {
         // Application configuration file.
         from: './src/main/electron-config.json',
         to: path.join(__dirname, '../app/build')
+      },
+      {
+        // Application icon.
+        from: './src/main/res/images/appIcon.ico',
+        to: path.join(__dirname, '../app/build/icon.ico')
       }
     ]),
   ]

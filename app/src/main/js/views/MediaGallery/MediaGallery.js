@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Alert, Card, CardHeader, CardText, CardBody, CardTitle, CardSubtitle, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 import GalleryImageComponent from './../../containers/media_gallery/components/gallery_image_component';
 
@@ -104,7 +105,24 @@ class MediaGallery extends Component {
    * Triggers the update of the gallery based on the modal for editing the gallery input.
    */
   editGallery() {
-    console.log(this.state.editGallery)
+    const { updateGalleries } = this.props;
+    const galleriesService = new GalleriesService()
+    galleriesService.update({_id: this.state.gallery._id}, {$set: { name: this.state.editGallery.name, description: this.state.editGallery.description}}, { multi: false, upset: false }, (error, item) => {
+      if (error) {
+        console.log(error)
+      }
+      else {
+        let gallery = this.state.gallery
+        gallery.name = this.state.editGallery.name
+        gallery.description = this.state.editGallery.description
+        this.setState({gallery: gallery})
+
+        // Dispatch the update of the gallery.
+        updateGalleries(gallery)
+
+        this.toggleEditGalleryModal()
+      }
+    })
   }
 
   /**
@@ -113,7 +131,7 @@ class MediaGallery extends Component {
    */
   render() {
     const isAlertVisible = this.state.alertText != '';
-    const isEditGalleryEnabled = this.state.editGallery.name != '' && this.state.editGallery.description != '' && this.state.editGallery.name != this.state.gallery.name && this.state.editGallery.description != this.state.gallery.description
+    const isEditGalleryEnabled = (this.state.editGallery.name != '' && this.state.editGallery.description != '') && (this.state.editGallery.name != this.state.gallery.name || this.state.editGallery.description != this.state.gallery.description)
 
     const images = this.state.images.map((image, key) => (<GalleryImageComponent {...image} key={key} />));
 
@@ -153,6 +171,10 @@ class MediaGallery extends Component {
       </div>
     );
   }
+}
+
+MediaGallery.propTypes = {
+  updateGalleries: PropTypes.func.isRequired
 }
 
 export default MediaGallery;

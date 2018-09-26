@@ -58,7 +58,7 @@ class GalleryList extends Component {
         const mediasService = new MediasService();
 
         items.forEach((gallery) => {
-          if (gallery.medias.length != 0) {
+          if (gallery.medias != undefined && gallery.medias.length != 0) {
             const randomImage = gallery.medias[Math.floor(Math.random() * gallery.medias.length)];
             mediasService.findById(randomImage, (error, item) => {
               if (error) {
