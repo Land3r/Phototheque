@@ -15,7 +15,13 @@
   "author": "Tahnik Mustasin",
   "license": "MIT",
   "build": {
+    "appId": "com.electron.phototheque",
     "productName": "Phototheque",
+    "copyright": "Copyright © 2018 Nicolas Gordat",
+    "directories": {
+      "app": ".",
+      "output": "release"
+    },
     "win": {
       "target": "NSIS"
     },
@@ -28,8 +34,18 @@
     "mac": {
       "category": "public.app-category.developer-tools"
     },
-    "directories": {
-      "output": "release"
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "./app/src/main/res/images/installer/installIcon.ico",
+      "uninstallerIcon": "./app/src/main/res/images/installer/uninstallIcon.ico",
+      "uninstallDisplayName": "Désinstalleur Phototheque",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "menuCategory": "Phototheque",
+      "shortcutName": "Phototheque"
     }
   },
   "keywords": [

@@ -24,6 +24,15 @@ function createWindow() {
         title: 'Phototheque'
       }
     ]));
+
+    console.log('Arguments elctron:' + JSON.stringify(merge.all(
+      [
+        electronConfig,
+        {
+          icon: path.join(__dirname, './res/images/appIcon.png'),
+          title: 'Phototheque'
+        }
+      ])))
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
