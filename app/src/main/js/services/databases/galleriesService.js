@@ -1,4 +1,5 @@
 import AbstractDatabaseService from './abstractDatabaseService';
+import { config } from '../../config/config'
 
 class GalleriesService extends AbstractDatabaseService {
   constructor() {
@@ -23,14 +24,9 @@ class GalleriesService extends AbstractDatabaseService {
     this.db.ensureIndex({ fieldName: 'name', unique: true });
 
     // Sample data
-    const gallery =
-        this.insert([{
-          name: 'Non catégorisé',
-          description: 'Cette gallerie regroupe toutes les photos qui n\'appartiennent pas encore à d\'autres galleries',
-          medias: [],
-        }], (error, items) => {
-          console.log('Galleries DB initialized.');
-        });
+    this.insert([config.DEFAULT_GALLERY], (error, items) => {
+      console.log('Galleries DB initialized.');
+    });
   }
 
   reset() {
@@ -40,4 +36,4 @@ class GalleriesService extends AbstractDatabaseService {
   }
 }
 
-export default GalleriesService;
+export default new GalleriesService();

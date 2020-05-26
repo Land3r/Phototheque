@@ -1,15 +1,16 @@
 import fs from 'fs';
 import path from 'path';
 
+import { config } from '../config/config'
+
 const { dialog } = window.require('electron').remote;
 
 /**
  * Service for dealing with files and folders.
  */
 class FileService {
-  constructor() {
-
-  }
+  
+  //#region Generics
 
   /**
    * Opens a 'Open directory' dialog from electron.
@@ -45,6 +46,20 @@ class FileService {
       }
     });
     return currentResult;
+  }
+
+  //#endregion Specifics
+ 
+  /**
+   * Explores recursively a folder to get all compatible files inside it.
+   * @param {*} directory The folder to recursively explore.
+   */
+  readFolderForCompatibleFiles(directory) {
+    return this.readFolder(directory, file => {
+      let exts = file.toLowerCase().split('.')
+      let ext = exts[exts.length - 1]
+      return config.ALLOWED_EXT.indexOf(ext) > -1
+    })
   }
 }
 

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setMedia } from '../../../stores/media/actions';
+import { setMedia } from '../../../stores/medias/actions';
 import GalleryImageComponent from '../../../views/MediaGallery/Components/GalleryImageComponent';
 
 function mapStateToProps(state) {

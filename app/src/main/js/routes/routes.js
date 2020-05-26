@@ -1,5 +1,5 @@
 import DefaultLayout from '../layouts/DefaultLayout'
-import { GalleryList } from '../views/MediaGallery';
+import GalleryList from '../containers/media_gallery/gallery_list';
 import MediaGallery from '../containers/media_gallery/media_gallery'
 import Settings from '../views/Settings/Settings';
 import Exit from '../views/exit';

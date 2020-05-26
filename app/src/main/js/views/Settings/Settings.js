@@ -81,6 +81,10 @@ class Settings extends Component {
       this.props.history.push('/')
   }
 
+  /**
+   * Render lifecycle method.
+   * See https://reactjs.org/docs/react-component.html#render for more info.
+   */
   render() {
     return (
       <div className="animated fadeIn">

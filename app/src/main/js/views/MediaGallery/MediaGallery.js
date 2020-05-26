@@ -3,6 +3,7 @@ import { Alert, Card, CardHeader, CardText, CardBody, CardTitle, CardSubtitle, B
 import PropTypes from 'prop-types';
 
 import GalleryImageComponent from './../../containers/media_gallery/components/gallery_image_component';
+import GalleryVideoComponent from './Components/GalleryVideoComponent' 
 
 import GalleriesService from '../../services/databases/galleriesService';
 import MediasService from '../../services/databases/mediasService';
@@ -12,12 +13,17 @@ import MediasService from '../../services/databases/mediasService';
  * Used to display a Gallery of medias
  */
 class MediaGallery extends Component {
+  /**
+   * Initializes a new instance of the MediaGallery component.
+   * @param {*} props 
+   */
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.getInitialData = this.getInitialData.bind(this);
-    this.toggleEditGalleryModal = this.toggleEditGalleryModal.bind(this);
+    this.getInitialData = this.getInitialData.bind(this)
+    this.toggleEditGalleryModal = this.toggleEditGalleryModal.bind(this)
     this.editGallery = this.editGallery.bind(this)
+    this.getRandomNumber = this.getRandomNumber.bind(this)
 
     this.state = {
       ...props,
@@ -67,8 +73,7 @@ class MediaGallery extends Component {
    * Gets the initial data used by the component.
    */
   getInitialData() {
-    const galleriesService = new GalleriesService();
-    galleriesService.findById(this.props.match.params.id, (error, item) => {
+    GalleriesService.findById(this.props.match.params.id, (error, item) => {
       if (error) {
         console.log(error);
       } else if (item == null) {
@@ -82,8 +87,7 @@ class MediaGallery extends Component {
           }});
 
         // Get medias
-        const mediasService = new MediasService();
-        mediasService.find({ _id: { $in: item.medias } }, (error, items) => {
+        MediasService.find({ _id: { $in: item.medias } }, (error, items) => {
           if (error) {
             console.log(error);
           } else {
@@ -106,8 +110,7 @@ class MediaGallery extends Component {
    */
   editGallery() {
     const { updateGalleries } = this.props;
-    const galleriesService = new GalleriesService()
-    galleriesService.update({_id: this.state.gallery._id}, {$set: { name: this.state.editGallery.name, description: this.state.editGallery.description}}, { multi: false, upset: false }, (error, item) => {
+    GalleriesService.update({_id: this.state.gallery._id}, {$set: { name: this.state.editGallery.name, description: this.state.editGallery.description}}, { multi: false, upset: false }, (error, item) => {
       if (error) {
         console.log(error)
       }
@@ -125,6 +128,10 @@ class MediaGallery extends Component {
     })
   }
 
+  getRandomNumber(maxValue) {
+    return Math.floor(Math.random() * Math.floor(maxValue))
+  }
+
   /**
    * Renders the component.
    * See https://reactjs.org/docs/react-component.html#render for more info.
@@ -133,7 +140,14 @@ class MediaGallery extends Component {
     const isAlertVisible = this.state.alertText != '';
     const isEditGalleryEnabled = (this.state.editGallery.name != '' && this.state.editGallery.description != '') && (this.state.editGallery.name != this.state.gallery.name || this.state.editGallery.description != this.state.gallery.description)
 
-    const images = this.state.images.map((image, key) => (<GalleryImageComponent {...image} key={key} />));
+    const images = this.state.images.map((image, key) => {
+      if (this.getRandomNumber(2) == 1) {
+        return (<GalleryVideoComponent {...image} key={key} />)
+      }
+      else {
+        return (<GalleryImageComponent {...image} key={key} />)
+      }
+    });
 
     return (
       <div className="animated fadeIn">

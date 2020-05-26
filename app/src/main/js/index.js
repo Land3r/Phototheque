@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { HashRouter } from 'react-router-dom';
 import { AppContainer } from 'react-hot-loader';
-import reducers from './reducers/index';
+import reducers from './stores/index';
 import ServicesInitializers from './services'
 
 import App from './app';
@@ -36,19 +36,22 @@ const render = (Component) => {
 render(App);
 
 // Init services once store is up
-const servicesInit = new ServicesInitializers()
-servicesInit.reinstallIfNeeded()
+if (process.env.NODE_ENV == 'development') {
+  const servicesInit = new ServicesInitializers()
+  servicesInit.reinstallIfNeeded()
+}
+
+
 
 if (module.hot) {
   module.hot.accept('./app', () => {
     // eslint-disable-next-line
     const nextApp = require('./app').default;
-    render(nextApp);
-  });
-}
+    render(nextApp)
+  })
 
-// module.hot.accept('./reducers', () => {
-//   // eslint-disable-next-line
-//   const nextRootReducer = require('./reducers/index');
-//   store.replaceReducer(nextRootReducer);
-// });
+module.hot.accept('./stores', () => {
+  // eslint-disable-next-line
+  const nextRootReducer = require('./stores/index')
+  store.replaceReducer(nextRootReducer)
+})

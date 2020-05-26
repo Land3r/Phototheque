@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import logo from '../../../res/images/brand/logo.png';
-import sygnet from '../../../res/images/brand/sygnet.svg';
+import sygnet from '../../../res/images/brand/sygnet.png';
 
 const propTypes = {
   children: PropTypes.node,
@@ -23,6 +23,11 @@ class DefaultHeader extends Component {
       isSidetoggled: false,
     };
   }
+
+  /**
+   * Render lifecycle method.
+   * See https://reactjs.org/docs/react-component.html#render for more info.
+   */
   render() {
     console.log(logo);
 

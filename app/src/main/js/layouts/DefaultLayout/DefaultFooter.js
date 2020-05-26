@@ -20,6 +20,10 @@ class DefaultFooter extends Component {
     shell.openExternal(url);
   }
 
+  /**
+   * Render lifecycle method.
+   * See https://reactjs.org/docs/react-component.html#render for more info.
+   */
   render() {
     // eslint-disable-next-line
     const { children, ...attributes } = this.props;

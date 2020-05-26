@@ -1,33 +1,22 @@
-import {store} from 'redux'
 import FoldersService from './databases/foldersService'
 import GalleriesService from './databases/galleriesService'
 import MediasService from './databases/mediasService';
+import { config } from '../config/config';
 
 class Services {
     constructor() {
-
     }
 
     init() {
-        const galleriesService = new GalleriesService()
-        galleriesService.init()
-        
-        const foldersService = new FoldersService()
-        foldersService.init()
-
-        const mediasService = new MediasService()
-        mediasService.init()
+        GalleriesService.init()
+        FoldersService.init()
+        MediasService.init()
     }
 
     reset() {
-        const galleriesService = new GalleriesService()
-        galleriesService.reset()
-        
-        const foldersService = new FoldersService()
-        foldersService.reset()
-
-        const mediasService = new MediasService()
-        mediasService.reset()
+        GalleriesService.reset()
+        FoldersService.reset()
+        MediasService.reset()
     }
 
     reinstall() {
@@ -37,8 +26,7 @@ class Services {
     }
 
     reinstallIfNeeded() {
-        const galleriesService = new GalleriesService()
-        galleriesService.find({'name': 'Non catégorisé'}, (error, items) => {
+        GalleriesService.find({'name': config.DEFAULT_GALLERY.name}, (error, items) => {
             if (error) {
                 console.log(error)
             }

@@ -1,5 +1,5 @@
-import { connect } from 'react-redux'
-import DefaultAside from '../../layouts/DefaultLayout/DefaultAside'
+import { connect } from 'react-redux';
+import GalleryList from '../../views/MediaGallery/GalleryList';
 
 /*
  This is a redux specific function.
@@ -9,7 +9,8 @@ import DefaultAside from '../../layouts/DefaultLayout/DefaultAside'
  */
 function mapStateToProps(state) {
   return {
-    medias: state.medias,
+    galleries: state.galleries.galleries,
+    folders: state.folders.folders
   }
 }
 
@@ -17,4 +18,4 @@ function mapStateToProps(state) {
  Here we are creating a Higher order component
  https://facebook.github.io/react/docs/higher-order-components.html
  */
-export default connect(mapStateToProps)(DefaultAside)
+export default connect(mapStateToProps)(GalleryList);

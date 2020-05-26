@@ -4,6 +4,7 @@ const Datastore = require('nedb');
 const path = require('path');
 
 class AbstractDatabaseService {
+
   constructor(databaseName) {
     const databasePath = path.join(config.DB_PATH, `${databaseName}.db`);
     this.db = new Datastore({ filename: databasePath, autoload: true, timestampData: true });

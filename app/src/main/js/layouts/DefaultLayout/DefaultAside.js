@@ -52,10 +52,14 @@ class DefaultAside extends Component {
     }
   }
 
+  /**
+   * Render lifecycle method.
+   * See https://reactjs.org/docs/react-component.html#render for more info.
+   */
   render() {
     // eslint-disable-next-line
     const { children, ...attributes } = this.props;
-    const mediaTitle = this.props.media.media ? this.formatMediaTitle(this.props.media.media.path) : ''
+    const mediaTitle = this.props.medias.media ? this.formatMediaTitle(this.props.medias.media.path) : ''
 
     return (
       <React.Fragment>
@@ -87,7 +91,7 @@ class DefaultAside extends Component {
                 <div style={{ padding: '15px' }}>
                   <h4>Données Exif</h4>
                   <br />
-                  <ReactJsonView src={this.props.media.media ? this.props.media.media.exif : {}} displayDataTypes={false} />
+                  <ReactJsonView src={this.props.medias.media ? this.props.medias.media.exif : {}} displayDataTypes={false} />
                 </div>
               </Col>
             </Row>

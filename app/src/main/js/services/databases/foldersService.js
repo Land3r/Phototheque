@@ -20,4 +20,4 @@ class FoldersService extends AbstractDatabaseService {
   }
 }
 
-export default FoldersService;
+export default new FoldersService();

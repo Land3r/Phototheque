@@ -17,8 +17,6 @@ let mainWindow;
 function createWindow() {
   // Create the browser window.
 
-  if ()
-
   mainWindow = new BrowserWindow(merge.all(
     [
       electronConfig,

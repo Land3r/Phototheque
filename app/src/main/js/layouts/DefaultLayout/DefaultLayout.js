@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import merge from 'deepmerge'
 import { Container } from 'reactstrap';
 import GalleriesService from '../../services/databases/galleriesService'
 
@@ -41,21 +40,15 @@ class DefaultLayout extends Component {
     }
   }
 
+  /**
+   * ComponentDidMount lifecycle method.
+   * See https://reactjs.org/docs/react-component.html#componentdidmount for more info.
+   */
   componentDidMount() {
     this.getInitialState()
   }
 
   getInitialState() {
-    const galleriesService = new GalleriesService()
-    galleriesService.find({}, (error, items) => {
-      if (error) {
-        console.log(error)
-      }
-      else {
-        const { setGalleries } = this.props
-        setGalleries(items)
-      }
-    })
   }
 
   getGalleriesNavLink() {
@@ -74,6 +67,10 @@ class DefaultLayout extends Component {
     return result
   }
 
+  /**
+   * Render lifecycle method.
+   * See https://reactjs.org/docs/react-component.html#render for more info.
+   */
   render() {
 
     const navGalleries = this.getGalleriesNavLink()

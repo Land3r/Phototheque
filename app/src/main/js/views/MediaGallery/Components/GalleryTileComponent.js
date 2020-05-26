@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, Badge } from 'reactstrap';
 import MediasService from '../../../services/databases/mediasService';
 import { Link } from 'react-router-dom';
-import UncategorizedImage from '../../../../res/images/galleries/uncategorized.jpg'
 
 class GalleryTileComponent extends Component {
   constructor(props) {
@@ -20,11 +19,15 @@ class GalleryTileComponent extends Component {
     return state;
   }
 
+  /**
+   * Render lifecycle method.
+   * See https://reactjs.org/docs/react-component.html#render for more info.
+   */
   render() {
     return (
       <Card>
         <Link to={`/galleries/${this.state._id}`}>
-          <CardImg top width="100%" src={this.state.image || UncategorizedImage} alt={this.state.name} />
+          <CardImg top width="100%" src={this.state.image} alt={this.state.name} />
         </Link>
         <CardBody>
           <CardTitle>

@@ -1,7 +1,7 @@
 export default {
   items: [
     {
-      name: 'Accueil',
+      name: 'Galleries',
       url: '/',
       icon: 'fa fa-home',
     },
@@ -17,11 +17,7 @@ export default {
       },
       class: '', // optional class names space delimited list for title item ex: "text-center"
     },
-    {
-      name: 'Galleries',
-      url: '/galleries',
-      icon: 'fa fa-image',
-    },
+    // The galleries items are injected here.
     {
       divider: true,
     },

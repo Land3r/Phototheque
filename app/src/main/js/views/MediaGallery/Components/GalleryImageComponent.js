@@ -17,6 +17,10 @@ class GalleryImageComponent extends Component {
         setSidePanelItem(media)
     }
 
+    /**
+      * Render lifecycle method.
+      * See https://reactjs.org/docs/react-component.html#render for more info.
+      */
     render() {
         return(
             <img src={this.state.path} onClick={e => {this.toggleSidePanelItem({...this.state})}} />
